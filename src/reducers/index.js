@@ -4,6 +4,7 @@ const postReducers = () => {
   return {
     threads: [
       {
+        avatar: "https://react.semantic-ui.com/images/avatar/large/steve.jpg",
         name: "Prof. Ross Geller",
         text: "Hai, I am a paleonthologist. I love Rachel, but she didn't loves me back :(",
         likes: 3,
@@ -15,6 +16,7 @@ const postReducers = () => {
         ],
       },
       {
+        avatar: "https://react.semantic-ui.com/images/avatar/large/daniel.jpg",
         name: "Chandler M. Bing",
         text: "Hey!. I'm afraid, the girl I text online is a fat bald guy!",
         likes: 16,
@@ -22,6 +24,7 @@ const postReducers = () => {
         comments: ["LMAO", "HAHAHA", "If you wanna be gay, be gay!"],
       },
       {
+        avatar: "https://react.semantic-ui.com/images/avatar/large/stevie.jpg",
         name: "Phoebe Buffe",
         text: "I found a human thumb in my soda can and the soda company pay me $7000 what a crappy day.",
         likes: 100,

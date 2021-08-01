@@ -4,7 +4,7 @@ import Thread from "./Thread";
 const ThreadList = ({ list }) => {
   const renderList = list.threads.map((item, index) => {
     return (
-      <div key={index}>
+      <div key={index} style={{ marginBottom: "5px" }}>
         <Thread item={item} />
       </div>
     );
