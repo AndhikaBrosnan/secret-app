@@ -21,7 +21,7 @@ const postReducers = () => {
         text: "Hey!. I'm afraid, the girl I text online is a fat bald guy!",
         likes: 16,
         date: "2021-04-10 11:20:11",
-        comments: ["LMAO", "HAHAHA", "If you wanna be gay, be gay!"],
+        comments: ["LMAO", "HAHAHA"],
       },
       {
         avatar: "https://react.semantic-ui.com/images/avatar/large/stevie.jpg",
@@ -30,9 +30,10 @@ const postReducers = () => {
         likes: 100,
         date: "2021-05-10 16:20:11",
         comments: [
-          "wait, what",
+          "wait, what?!",
           "Can I have some amount of money please",
           "Buy a car phoeb",
+          "Now you have a plan, phoeb!",
         ],
       },
     ],
