@@ -2,19 +2,20 @@ import React, { useState } from "react";
 import "../css/Thread.css";
 import CommentList from "./CommentList";
 
-const Thread = ({ item }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
+const Thread = ({ item, threadIndex }) => {
+  const [activeIndex, setActiveIndex] = useState(null);
 
-  //action if the comment icon clicked, (use action redux later)
   const onCommentClick = (index) => {
     setActiveIndex(index);
   };
 
-  // const renderedItems = item.comments.map((comment) => {
-  //   return <div>comment: {comment}</div>;
-  // });
-
-  //todo: add reply icon untuk ngeliat siapa yang komen.
+  const RenderComments = () => {
+    return activeIndex === threadIndex ? (
+      <CommentList comments={item.comments} />
+    ) : (
+      <div></div>
+    );
+  };
 
   return (
     <div className="ui card">
@@ -31,14 +32,14 @@ const Thread = ({ item }) => {
         </a>
         <a
           href="#!"
-          onClick={() => onCommentClick}
+          onClick={() => onCommentClick(threadIndex)}
           style={{ paddingLeft: "25px" }}
         >
           <i className="reply icon"></i> {item.comments.length}
         </a>
       </div>
 
-      <CommentList comments={item.comments} />
+      <RenderComments />
     </div>
   );
 };
