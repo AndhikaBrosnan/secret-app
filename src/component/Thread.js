@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import "../css/Thread.css";
 import CommentList from "./CommentList";
 
-//the props doesn't passed here?
-const Thread = ({ item }) => {
+const Thread = ({ item, threadIndex }) => {
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  const onCommentClick = (index) => {
+    setActiveIndex(index);
+  };
+
+  const RenderComments = () => {
+    return activeIndex === threadIndex ? (
+      <CommentList comments={item.comments} />
+    ) : (
+      <div></div>
+    );
+  };
+
   return (
     <div className="ui card">
       <div className="content">
@@ -17,8 +30,16 @@ const Thread = ({ item }) => {
           <i className="like icon"></i>
           {item.likes}
         </a>
+        <a
+          href="#!"
+          onClick={() => onCommentClick(threadIndex)}
+          style={{ paddingLeft: "25px" }}
+        >
+          <i className="reply icon"></i> {item.comments.length}
+        </a>
       </div>
-      <CommentList comments={item.comments} />
+
+      <RenderComments />
     </div>
   );
 };
