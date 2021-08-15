@@ -1,5 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
+import { postThread } from "../actions";
 
 const renderInput = (formProps) => {
   return (
@@ -12,7 +14,7 @@ const renderInput = (formProps) => {
   );
 };
 
-const CreateThread = () => {
+const CreateThread = (props) => {
   return (
     <div className="ui segment">
       <form className="ui form">
@@ -24,12 +26,22 @@ const CreateThread = () => {
           {/* redux form Field*/}
           <Field name="postThread" component={renderInput} />
         </div>
-        <button className="ui primary button">Share</button>
+        <button className="ui primary button" onClick={props.postThread}>
+          Share
+        </button>
       </form>
     </div>
   );
 };
 
+const mapStatetoProps = (state) => {
+  return { posts: state.posts };
+};
+
+const createThreadComponent = connect(mapStatetoProps, { postThread })(
+  CreateThread
+);
+
 export default reduxForm({
   form: "streamCreate",
-})(CreateThread);
+})(createThreadComponent);
