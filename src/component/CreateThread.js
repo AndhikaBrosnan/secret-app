@@ -1,4 +1,16 @@
 import React from "react";
+import { Field, reduxForm } from "redux-form";
+
+const renderInput = (formProps) => {
+  return (
+    <textarea
+      {...formProps.input}
+      rows="3"
+      type="text"
+      placeholder="What's Happpening?"
+    ></textarea>
+  );
+};
 
 const CreateThread = () => {
   return (
@@ -8,11 +20,9 @@ const CreateThread = () => {
           <label>
             <h4>Create Thread</h4>
           </label>
-          <textarea
-            rows="3"
-            type="text"
-            placeholder="What's Happpening?"
-          ></textarea>
+
+          {/* redux form Field*/}
+          <Field name="postThread" component={renderInput} />
         </div>
         <button className="ui primary button">Share</button>
       </form>
@@ -20,4 +30,6 @@ const CreateThread = () => {
   );
 };
 
-export default CreateThread;
+export default reduxForm({
+  form: "streamCreate",
+})(CreateThread);
