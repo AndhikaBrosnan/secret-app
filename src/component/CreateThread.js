@@ -14,10 +14,14 @@ const renderInput = (formProps) => {
   );
 };
 
+const onSubmit = (formProps) => {
+  console.log(formProps);
+};
+
 const CreateThread = (props) => {
   return (
     <div className="ui segment">
-      <form className="ui form">
+      <form className="ui form" onSubmit={props.handleSubmit(onSubmit)}>
         <div className="field">
           <label>
             <h4>Create Thread</h4>
@@ -26,9 +30,7 @@ const CreateThread = (props) => {
           {/* redux form Field*/}
           <Field name="postThread" component={renderInput} />
         </div>
-        <button className="ui primary button" onClick={props.postThread}>
-          Share
-        </button>
+        <button className="ui primary button">Share</button>
       </form>
     </div>
   );
