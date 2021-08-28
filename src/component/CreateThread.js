@@ -29,15 +29,15 @@ const renderInput = (formProps) => {
 };
 
 // # Alternative to make an action.
-const onSubmit = (formProps) => {
-  postThread(formProps.postThread);
-};
+// const onSubmit = (formProps) => {
+//   postThread(formProps.postThread);
+// };
 
 const CreateThread = (props) => {
   return (
     <div className="ui segment">
       {/* handleSubmit aja ga usah ke Action bisa dipanggil redux-form nya == onSubmit={props.handleSubmit}*/}
-      <form className="ui form error" onSubmit={props.handleSubmit(onSubmit)}>
+      <form className="ui form error" onSubmit={props.handleSubmit}>
         <div className="field">
           <label>
             <h4>Create Thread</h4>

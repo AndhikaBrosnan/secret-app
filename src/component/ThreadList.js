@@ -2,7 +2,7 @@ import React from "react";
 import Thread from "./Thread";
 
 const ThreadList = ({ list }) => {
-  const renderList = list.threads.map((item, index) => {
+  const renderList = list.map((item, index) => {
     return (
       <div key={index} style={{ marginBottom: "5px" }}>
         <Thread threadIndex={index} item={item} />
