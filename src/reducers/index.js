@@ -41,4 +41,17 @@ const postReducers = () => {
   };
 };
 
-export default combineReducers({ posts: postReducers, form: formReducer });
+const postThreadReducer = (postThread = null, action) => {
+  if (action.type === "SUBMIT_FORM") {
+    console.log("submit_form never called");
+    return action.payload;
+  }
+
+  return postThread;
+};
+
+export default combineReducers({
+  posts: postReducers,
+  form: formReducer,
+  postThread: postThreadReducer,
+});
