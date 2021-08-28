@@ -4,11 +4,16 @@ import CreateThread from "./CreateThread.js";
 import { connect } from "react-redux";
 
 class App extends React.Component {
-
-  // Submit provided by redux form! 
+  constructor(props) {
+    super(props);
+    this.state = { posts: this.props.posts };
+  }
+  // Submit provided by redux form!
   // CURRENTLY unused
   submit = (values) => {
+    
     const timeElapsed = Date.now();
+
     const today = new Date(timeElapsed);
 
     let newPost = {
@@ -20,16 +25,17 @@ class App extends React.Component {
       comments: [],
     };
 
-    return {
-      posts: [...this.props.posts.threads, newPost],
-    };
+    // set state to manipulate the lists
+    this.setState({
+      posts: [newPost, ...this.state.posts],
+    });
   };
 
   render() {
     return (
       <div className="ui container" style={{ marginTop: "10px" }}>
         <CreateThread onSubmit={this.submit} />
-        <ThreadList list={this.props.posts} />
+        <ThreadList list={this.state.posts} />
       </div>
     );
   }
