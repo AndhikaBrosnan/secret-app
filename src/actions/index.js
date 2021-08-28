@@ -1,6 +1,7 @@
 export const postThread = (thread) => {
+  console.log("action thread = ", thread);
   return {
-    type: "POST_THREAD",
-    payload: thread,    
+    type: "SUBMIT_FORM",
+    payload: postThread,
   };
 };
