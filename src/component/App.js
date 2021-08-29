@@ -8,10 +8,8 @@ class App extends React.Component {
     super(props);
     this.state = { posts: this.props.posts };
   }
-  // Submit provided by redux form!
-  // CURRENTLY unused
+
   submit = (values) => {
-    
     const timeElapsed = Date.now();
 
     const today = new Date(timeElapsed);

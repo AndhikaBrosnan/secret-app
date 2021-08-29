@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Field, reduxForm } from "redux-form";
+import { Field, reduxForm, reset } from "redux-form";
 import { postThread } from "../actions";
 
 const renderError = ({ error, touched }) => {
@@ -33,10 +33,12 @@ const renderInput = (formProps) => {
 //   postThread(formProps.postThread);
 // };
 
+//WHY does this work?!
+const afterSubmit = (formProps, dispatch) => dispatch(reset("threadCreate"));
+
 const CreateThread = (props) => {
   return (
     <div className="ui segment">
-      {/* handleSubmit aja ga usah ke Action bisa dipanggil redux-form nya == onSubmit={props.handleSubmit}*/}
       <form className="ui form error" onSubmit={props.handleSubmit}>
         <div className="field">
           <label>
@@ -71,5 +73,6 @@ const validate = (formValue) => {
 
 export default reduxForm({
   form: "threadCreate",
+  onSubmitSuccess: afterSubmit,
   validate,
 })(createThreadComponent);

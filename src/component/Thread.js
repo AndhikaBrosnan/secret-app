@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import "../css/Thread.css";
 import CommentList from "./CommentList";
+import { connect } from "react-redux";
 
-const Thread = ({ item, threadIndex }) => {
-  const [activeIndex, setActiveIndex] = useState(null);
+const Thread = ({ likes, item, threadIndex }) => {
+  const [activeComment, setactiveComment] = useState(null);
+
+  const activeLike = likes.includes(item.id) ? "active" : "";
 
   const onCommentClick = (index) => {
-    setActiveIndex(index);
+    setactiveComment(index);
   };
 
+  const onLikeClick = (index) => {};
+
   const RenderComments = () => {
-    return activeIndex === threadIndex ? (
+    return activeComment === threadIndex ? (
       <CommentList comments={item.comments} />
     ) : (
       <div></div>
@@ -26,8 +31,8 @@ const Thread = ({ item, threadIndex }) => {
         <div className="description">{item.text}</div>
       </div>
       <div className="extra content">
-        <a href="/">
-          <i className="like icon"></i>
+        <a href="#!" onClick={() => onLikeClick(threadIndex)}>
+          <i className={`like icon ${activeLike}`}></i>
           {item.likes}
         </a>
         <a
@@ -44,4 +49,10 @@ const Thread = ({ item, threadIndex }) => {
   );
 };
 
-export default Thread;
+const mapStateToProps = (state) => {
+  return {
+    likes: state.likes,
+  };
+};
+
+export default connect(mapStateToProps)(Thread);
