@@ -12,3 +12,10 @@ export const likePost = (thread) => {
     payload: thread,
   };
 };
+
+export const unlikePost = (thread) => {
+  return {
+    type: "UNLIKE_POST",
+    payload: thread,
+  };
+};
