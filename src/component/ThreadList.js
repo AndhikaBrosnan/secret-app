@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import Thread from "./Thread";
 
 const ThreadList = ({ list }) => {
-  const renderList = list.threads.map((item, index) => {
+  // state of the likes
+  const [activeLike, setActiveLikes] = useState([]);
+
+  const threadCallback = (index) => {
+    setActiveLikes(index, ...activeLike);
+  };
+
+  const renderList = list.map((item, index) => {
     return (
-      <div key={index}>
-        <Thread item={item} />
+      <div key={index} style={{ marginBottom: "5px" }}>
+        <Thread
+          threadIndex={index}
+          item={item}
+          threadCallback={threadCallback}
+        />
       </div>
     );
   });
