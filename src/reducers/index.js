@@ -42,10 +42,6 @@ const postReducers = () => {
   ];
 };
 
-// const likesReducer = () => {
-//   return [0];
-// };
-
 const postThreadReducer = (postThread = null, action) => {
   if (action.type === "SUBMIT_FORM") {
     console.log("submit_form never called");
