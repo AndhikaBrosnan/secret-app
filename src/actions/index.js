@@ -1,5 +1,6 @@
+import jsonBackend from "../apis/jsonBackend";
+
 export const postThread = (thread) => {
-  console.log("action thread = ", thread);
   return {
     type: "SUBMIT_FORM",
     payload: thread,
@@ -18,4 +19,10 @@ export const unlikePost = (thread) => {
     type: "UNLIKE_POST",
     payload: thread,
   };
+};
+
+export const fetchPosts = () => async (dispatch) => {
+  const response = await jsonBackend.get("/threads");
+
+  dispatch({ type: "FETCH_POSTS", payload: response });
 };
