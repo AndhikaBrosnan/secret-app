@@ -10,7 +10,6 @@ const renderError = ({ error, touched }) => {
         <div className="text">{error} </div>
       </div>
     );
-  } else {
   }
 };
 
@@ -28,18 +27,16 @@ const renderInput = (formProps) => {
   );
 };
 
-// # Alternative to make an action.
-// const onSubmit = (formProps) => {
-//   postThread(formProps.postThread);
-// };
-
 //WHY does this work?!
 const afterSubmit = (formProps, dispatch) => dispatch(reset("threadCreate"));
 
 const CreateThread = (props) => {
   return (
     <div className="ui segment">
-      <form className="ui form error" onSubmit={props.handleSubmit}>
+      <form
+        className="ui form error"
+        onSubmit={props.handleSubmit(props.postThread)}
+      >
         <div className="field">
           <label>
             <h4>Create Thread</h4>
@@ -55,7 +52,7 @@ const CreateThread = (props) => {
 };
 
 const mapStatetoProps = (state) => {
-  return { postThread: state.postThread };
+  return { postThread: state.postThread, posts: state.posts };
 };
 
 const createThreadComponent = connect(mapStatetoProps, { postThread })(
