@@ -1,9 +1,6 @@
 import apiBackend from "../apis/apiBackend";
 
 export const postThread = async (thread, dispatch) => {
-  // disini post abis itu langsung refetch lagi di :)) #Thanks Riza
-  // #1 Cari dulu gimana caranya bisa post. Re-fetch bisa pake componentDidUpdate
-
   // const headers = {
   //   "Content-Type": "application/json",
   // };
@@ -15,12 +12,22 @@ export const postThread = async (thread, dispatch) => {
   //     (error) => dispatch({ type: "REQUEST_FAILED", error: error })
   //   );
   // };
+
   console.log("what is dispatch: ", dispatch);
   console.log("so,what is thread: ", thread);
   try {
     const response = await apiBackend.post("/threads/create", thread);
+    console.log("try api backend: ", response);
     dispatch({ type: "SUBMIT_FORM", payload: response });
+
+    // return apiBackend.post("/threads/create", thread).then((dispatch) => {
+    //   dispatch({
+    //     type: "SUBMIT_FORM",
+    //     payload: thread,
+    //   });
+    // });
   } catch (err) {
+    console.log("ERROR CATCH");
     dispatch({ type: "SUBMIT_FORM_ERROR", payload: err });
   }
 
