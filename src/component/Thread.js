@@ -26,7 +26,7 @@ const Thread = ({ unlikePost, likePost, likes, item, threadIndex }) => {
       <div className="content">
         <img alt="" src={item.avatar} className="ui mini left floated image" />
         <div className="header">{item.name}</div>
-        <div className="meta">{item.date}</div>
+        <div className="meta">{item.updatedAt}</div>
         <div className="description">{item.text}</div>
       </div>
       <div className="extra content">

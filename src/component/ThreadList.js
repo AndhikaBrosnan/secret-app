@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Thread from "./Thread";
+import { connect } from "react-redux";
 
-const ThreadList = ({ list }) => {
+const ThreadList = ({ posts }) => {
+  console.log(posts);
   // state of the likes
   const [activeLike, setActiveLikes] = useState([]);
 
@@ -9,22 +11,23 @@ const ThreadList = ({ list }) => {
     setActiveLikes(index, ...activeLike);
   };
 
-  console.log("(THREADLIST) props list: ", list[0]);
+  useEffect(
+    // re-render
+    () => {},
+    [posts]
+  );
 
-  const renderList =
-    list[0] !== []
-      ? list.map((item, index) => {
-          return (
-            <div key={index} style={{ marginBottom: "5px" }}>
-              <Thread
-                threadIndex={index}
-                item={item}
-                threadCallback={threadCallback}
-              />
-            </div>
-          );
-        })
-      : "";
+  const renderList = posts[0].map((item, index) => {
+    return (
+      <div key={index} style={{ marginBottom: "5px" }}>
+        <Thread
+          threadIndex={index}
+          item={item}
+          threadCallback={threadCallback}
+        />
+      </div>
+    );
+  });
 
   return (
     <div role="list" className="list">
@@ -33,4 +36,8 @@ const ThreadList = ({ list }) => {
   );
 };
 
-export default ThreadList;
+const mapStatetoProps = (state) => {
+  return { posts: state.posts };
+};
+
+export default connect(mapStatetoProps)(ThreadList);
