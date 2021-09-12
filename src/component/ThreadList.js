@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Thread from "./Thread";
 import { connect } from "react-redux";
 
@@ -10,6 +10,12 @@ const ThreadList = ({ posts }) => {
   const threadCallback = (index) => {
     setActiveLikes(index, ...activeLike);
   };
+
+  useEffect(
+    // re-render
+    () => {},
+    [posts]
+  );
 
   const renderList = posts[0].map((item, index) => {
     return (
