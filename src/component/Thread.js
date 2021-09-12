@@ -46,7 +46,7 @@ const Thread = ({ unlikePost, likePost, likes, item, threadIndex }) => {
           onClick={() => onCommentClick(threadIndex)}
           style={{ paddingLeft: "25px" }}
         >
-          <i className="reply icon"></i> {item.comments.length}
+          {/* <i className="reply icon"></i> {item.comments.length} */}
         </a>
       </div>
 

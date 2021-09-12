@@ -8,14 +8,15 @@ export const submitFormActionError = (err) => {
   return { type: "SUBMIT_FORM_ERROR", payload: err };
 };
 
-export const postThread = async (thread, dispatch) => {
+export const postThread = async (thread) => {
+  console.log("thread di action", thread);
   const timeElapsed = Date.now();
   const today = new Date(timeElapsed);
 
   let newPost = {
     avatar: "https://semantic-ui.com/images/avatar2/large/kristy.png",
     name: "Anonymous",
-    text: thread.postThread,
+    text: thread,
     likes: 0,
     createdAt: today.toDateString(),
     updatedAt: today.toDateString(),
@@ -27,18 +28,18 @@ export const postThread = async (thread, dispatch) => {
   // 2. bedanya return sama dispatch apa kalo di action
   // 3. cara nge re-render threadlists
 
-  console.log("what is dispatch: ", dispatch);
   console.log("so,what is thread: ", thread);
   try {
     const response = await apiBackend.post("/threads/create", newPost); //error disini. awaitnya
     console.log("try api backend: ", response);
-    dispatch(submitFormAction(thread));
+    return response.data;
+    // dispatch(submitFormAction(thread));
     // fetchPosts();
 
     //re-fetch
   } catch (err) {
     console.log("ERROR CATCH");
-    dispatch(submitFormActionError(err));
+    // dispatch(submitFormActionError(err));
   }
 };
 
@@ -56,8 +57,19 @@ export const unlikePost = (thread) => {
   };
 };
 
-export const fetchPosts = () => async (dispatch) => {
-  const response = await apiBackend.get("/threads");
+// export const fetchPosts = async () => {
+//   const response = apiBackend.get("/threads");
 
-  dispatch({ type: "FETCH_POSTS", payload: response });
+//   return { type: "FETCH_POSTS", payload: response.data };
+// };
+
+export const fetchPosts = async () => {
+  try {
+    const response = await apiBackend.get("/threads");
+    return response.data;
+  } catch (err) {
+    return {
+      message: "[ERROR] Fetch Posts",
+    };
+  }
 };
