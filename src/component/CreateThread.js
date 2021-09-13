@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { connect, useDispatch } from "react-redux";
+import { reduxForm, reset } from "redux-form";
 import { postThread } from "../actions";
+
+//WHY does this work?!
+const afterSubmit = (formProps, dispatch) => dispatch(reset("threadCreate"));
 
 //ntar di rapiin di folder baru.
 const submitFormAction = (payload) => ({
   type: "SUBMIT_FORM",
-  payload,
+  payload: [payload],
 });
 
 const CreateThread = () => {
@@ -15,14 +19,17 @@ const CreateThread = () => {
 
   const handleSubmit = async () => {
     if (!inputThread) {
-      setError("Please fill this test area");
+      setError("Please fill this textarea");
       return;
     }
     const response = await postThread(inputThread);
     console.log("response di createThread", response);
     // validasi.
     setInputThread("");
-    dispatch(submitFormAction(inputThread));
+    dispatch({
+      type: "SUBMIT_FORM",
+      payload: [response],
+    });
   };
 
   const handleInputChange = (event) => {
@@ -61,4 +68,21 @@ const mapStatetoProps = (state) => {
   return { postThread: state.postThread, posts: state.posts };
 };
 
-export default connect(mapStatetoProps, { postThread })(CreateThread);
+const createThreadComponent = connect(mapStatetoProps, { postThread })(
+  CreateThread
+);
+
+const validate = (formValue) => {
+  const errors = {};
+
+  if (!formValue.postThread) {
+    errors.postThread = "Fill to post Thread.";
+  }
+  return errors;
+};
+
+export default reduxForm({
+  form: "threadCreate",
+  onSubmitSuccess: afterSubmit,
+  validate,
+})(createThreadComponent);
