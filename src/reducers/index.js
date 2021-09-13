@@ -1,28 +1,13 @@
 import { combineReducers } from "redux";
 import { reducer as formReducer } from "redux-form";
 
-const postReducers = (posts = { 0: [] }, action) => {
+const postReducers = (posts = [], action) => {
+  console.log(posts);
   switch (action.type) {
     case "FETCH_POSTS":
-      posts = [...posts[0], action.payload.data];
-      console.log("my post on fetch: ", posts);
-      return posts;
+      return posts.concat(action.payload);
     case "SUBMIT_FORM":
-      const timeElapsed = Date.now();
-      const today = new Date(timeElapsed);
-
-      let newPost = {
-        avatar: "https://semantic-ui.com/images/avatar2/large/kristy.png",
-        name: "Anonymous",
-        text: action.payload,
-        likes: 0,
-        createdAt: today.toDateString(),
-        updatedAt: today.toDateString(),
-        comments: [],
-      };
-
-      posts[0] = [...posts[0], newPost];
-      return posts;
+      return action.payload.concat(posts);
     case "SUBMIT_FORM_ERROR":
       return posts;
     default:

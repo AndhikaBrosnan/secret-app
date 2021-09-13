@@ -1,52 +1,65 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Field, reduxForm, reset } from "redux-form";
+import React, { useState } from "react";
+import { connect, useDispatch } from "react-redux";
+import { reduxForm, reset } from "redux-form";
 import { postThread } from "../actions";
-
-const renderError = ({ error, touched }) => {
-  if (error && touched) {
-    return (
-      <div className="ui error message">
-        <div className="text">{error} </div>
-      </div>
-    );
-  }
-};
-
-const renderInput = (formProps) => {
-  return (
-    <div name="field">
-      <textarea
-        {...formProps.input}
-        rows="3"
-        type="text"
-        placeholder="What's Happpening?"
-      ></textarea>
-      <div>{renderError(formProps.meta)}</div>
-    </div>
-  );
-};
 
 //WHY does this work?!
 const afterSubmit = (formProps, dispatch) => dispatch(reset("threadCreate"));
 
-const CreateThread = (props) => {
+//ntar di rapiin di folder baru.
+const submitFormAction = (payload) => ({
+  type: "SUBMIT_FORM",
+  payload: [payload],
+});
+
+const CreateThread = () => {
+  const dispatch = useDispatch();
+  const [inputThread, setInputThread] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = async () => {
+    if (!inputThread) {
+      setError("Please fill this textarea");
+      return;
+    }
+    const response = await postThread(inputThread);
+    console.log("response di createThread", response);
+    // validasi.
+    setInputThread("");
+    dispatch({
+      type: "SUBMIT_FORM",
+      payload: [response],
+    });
+  };
+
+  const handleInputChange = (event) => {
+    setInputThread(event.target.value);
+  };
+
   return (
     <div className="ui segment">
-      <form
-        className="ui form error"
-        onSubmit={props.handleSubmit(props.postThread)}
-      >
+      <div className="ui form">
         <div className="field">
           <label>
             <h4>Create Thread</h4>
           </label>
 
           {/* redux form Field*/}
-          <Field name="postThread" component={renderInput} />
+          <div name="field">
+            <textarea
+              value={inputThread}
+              onChange={handleInputChange}
+              rows="3"
+              type="text"
+              placeholder="What's Happpening?"
+            ></textarea>
+            <span className=" error">{error}</span>
+          </div>
         </div>
-        <button className="ui primary button">Share</button>
-      </form>
+        <button onClick={handleSubmit} className="ui primary button">
+          Share
+        </button>
+      </div>
     </div>
   );
 };

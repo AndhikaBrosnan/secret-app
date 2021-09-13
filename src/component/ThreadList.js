@@ -1,43 +1,46 @@
 import React, { useEffect, useState } from "react";
 import Thread from "./Thread";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchPosts } from "../actions";
 
-const ThreadList = ({ posts }) => {
-  console.log(posts);
+const ThreadList = () => {
+  //
+  const dispatch = useDispatch();
   // state of the likes
   const [activeLike, setActiveLikes] = useState([]);
+
+  // gantinya mapStatetoProps
+  const posts = useSelector((state) => state.posts);
 
   const threadCallback = (index) => {
     setActiveLikes(index, ...activeLike);
   };
 
-  useEffect(
-    // re-render
-    () => {},
-    [posts]
-  );
+  const fetchData = async () => {
+    const response = await fetchPosts();
+    console.log(response);
 
-  const renderList = posts[0].map((item, index) => {
-    return (
-      <div key={index} style={{ marginBottom: "5px" }}>
-        <Thread
-          threadIndex={index}
-          item={item}
-          threadCallback={threadCallback}
-        />
-      </div>
-    );
-  });
+    dispatch({ type: "FETCH_POSTS", payload: response });
+  };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  console.log("post in threadlist", posts);
   return (
     <div role="list" className="list">
-      {renderList}
+      {posts.map((item, index) => (
+        <div key={index} style={{ marginBottom: "5px" }}>
+          <Thread
+            threadIndex={index}
+            item={item}
+            threadCallback={threadCallback}
+          />
+        </div>
+      ))}
     </div>
   );
 };
 
-const mapStatetoProps = (state) => {
-  return { posts: state.posts };
-};
-
-export default connect(mapStatetoProps)(ThreadList);
+export default ThreadList;
