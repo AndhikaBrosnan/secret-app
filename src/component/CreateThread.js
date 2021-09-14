@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { reduxForm, reset } from "redux-form";
-import { postThread } from "../actions";
-
-//WHY does this work?!
-const afterSubmit = (formProps, dispatch) => dispatch(reset("threadCreate"));
+import { SUBMIT_FORM } from "../redux/type/thread";
+import { postThread } from "../redux/action";
 
 //ntar di rapiin di folder baru.
-const submitFormAction = (payload) => ({
-  type: "SUBMIT_FORM",
-  payload: [payload],
+const submitFormAction = (response) => ({
+  type: SUBMIT_FORM,
+  payload: [response],
 });
 
 const CreateThread = () => {
@@ -19,17 +16,14 @@ const CreateThread = () => {
 
   const handleSubmit = async () => {
     if (!inputThread) {
-      setError("Please fill this textarea");
+      setError("Please fill this thread.");
       return;
     }
     const response = await postThread(inputThread);
     console.log("response di createThread", response);
     // validasi.
     setInputThread("");
-    dispatch({
-      type: "SUBMIT_FORM",
-      payload: [response],
-    });
+    dispatch(submitFormAction(response));
   };
 
   const handleInputChange = (event) => {
@@ -53,7 +47,7 @@ const CreateThread = () => {
               type="text"
               placeholder="What's Happpening?"
             ></textarea>
-            <span className=" error">{error}</span>
+            <span className="ui error">{error}</span>
           </div>
         </div>
         <button onClick={handleSubmit} className="ui primary button">
@@ -72,17 +66,4 @@ const createThreadComponent = connect(mapStatetoProps, { postThread })(
   CreateThread
 );
 
-const validate = (formValue) => {
-  const errors = {};
-
-  if (!formValue.postThread) {
-    errors.postThread = "Fill to post Thread.";
-  }
-  return errors;
-};
-
-export default reduxForm({
-  form: "threadCreate",
-  onSubmitSuccess: afterSubmit,
-  validate,
-})(createThreadComponent);
+export default createThreadComponent;

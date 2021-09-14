@@ -1,11 +1,13 @@
-import apiBackend from "../apis/apiBackend";
+import apiBackend from "../../apis/apiBackend";
+import { SUBMIT_FORM, SUBMIT_FORM_ERROR } from "../type/thread";
+import { LIKE_POST, UNLIKE_POST } from "../type/likes";
 
 export const submitFormAction = (thread) => {
-  return { type: "SUBMIT_FORM", payload: thread };
+  return { type: SUBMIT_FORM, payload: thread };
 };
 
 export const submitFormActionError = (err) => {
-  return { type: "SUBMIT_FORM_ERROR", payload: err };
+  return { type: SUBMIT_FORM_ERROR, payload: err };
 };
 
 export const postThread = async (thread) => {
@@ -27,41 +29,31 @@ export const postThread = async (thread) => {
   // 1. docs thread di parameter 1, dispatch di paramteter 2 itu di react aja/ semua node
   // 2. bedanya return sama dispatch apa kalo di action
   // 3. cara nge re-render threadlists
+  // 4. kenapa harus 2 kali dispatch
 
   console.log("so,what is thread: ", thread);
   try {
-    const response = await apiBackend.post("/threads/create", newPost); //error disini. awaitnya
+    const response = await apiBackend.post("/threads/create", newPost);
     console.log("try api backend: ", response);
     return response.data;
-    // dispatch(submitFormAction(thread));
-    // fetchPosts();
-
-    //re-fetch
   } catch (err) {
     console.log("ERROR CATCH");
-    // dispatch(submitFormActionError(err));
   }
 };
 
 export const likePost = (thread) => {
   return {
-    type: "LIKE_POST",
+    type: LIKE_POST,
     payload: thread,
   };
 };
 
 export const unlikePost = (thread) => {
   return {
-    type: "UNLIKE_POST",
+    type: UNLIKE_POST,
     payload: thread,
   };
 };
-
-// export const fetchPosts = async () => {
-//   const response = apiBackend.get("/threads");
-
-//   return { type: "FETCH_POSTS", payload: response.data };
-// };
 
 export const fetchPosts = async () => {
   try {
