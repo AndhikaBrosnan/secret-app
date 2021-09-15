@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../css/Thread.css";
 import CommentList from "./CommentList";
 import { connect } from "react-redux";
-import { unlikePost, likePost } from "../actions";
+import { unlikePost, likePost } from "../redux/action";
 
 const Thread = ({ unlikePost, likePost, likes, item, threadIndex }) => {
   const [activeComment, setactiveComment] = useState(null);

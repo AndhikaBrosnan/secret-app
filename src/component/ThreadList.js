@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Thread from "./Thread";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchPosts } from "../actions";
+import { fetchData } from "../redux/action/thread";
 
 const ThreadList = () => {
-  //
   const dispatch = useDispatch();
   // state of the likes
   const [activeLike, setActiveLikes] = useState([]);
@@ -16,15 +15,8 @@ const ThreadList = () => {
     setActiveLikes(index, ...activeLike);
   };
 
-  const fetchData = async () => {
-    const response = await fetchPosts();
-    console.log(response);
-
-    dispatch({ type: "FETCH_POSTS", payload: response });
-  };
-
   useEffect(() => {
-    fetchData();
+    fetchData(dispatch); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   console.log("post in threadlist", posts);

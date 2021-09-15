@@ -1,8 +1,9 @@
 import React from "react";
 import ThreadList from "./ThreadList";
+import Navbar from "./Navbar";
 import CreateThread from "./CreateThread.js";
 import { connect } from "react-redux";
-import { fetchPosts } from "../actions";
+import { fetchPosts } from "../redux/action";
 
 class App extends React.Component {
   constructor(props) {
@@ -10,13 +11,12 @@ class App extends React.Component {
     this.state = { posts: this.props.posts };
   }
 
-  componentDidMount() {
-    // this.props.fetchPosts();
-  }
+  componentDidMount() {}
 
   render() {
     return (
       <div className="ui container" style={{ marginTop: "10px" }}>
+        <Navbar />
         <CreateThread />
         <ThreadList />
       </div>
