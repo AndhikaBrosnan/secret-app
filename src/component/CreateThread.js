@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { SUBMIT_FORM } from "../redux/type/thread";
 import { postThread } from "../redux/action";
-
-//ntar di rapiin di folder baru.
-const submitFormAction = (response) => ({
-  type: SUBMIT_FORM,
-  payload: [response],
-});
+import { submitFormAction } from "../redux/action/thread";
 
 const CreateThread = () => {
   const dispatch = useDispatch();

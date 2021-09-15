@@ -1,14 +1,5 @@
 import apiBackend from "../../apis/apiBackend";
-import { SUBMIT_FORM, SUBMIT_FORM_ERROR } from "../type/thread";
 import { LIKE_POST, UNLIKE_POST } from "../type/likes";
-
-export const submitFormAction = (thread) => {
-  return { type: SUBMIT_FORM, payload: thread };
-};
-
-export const submitFormActionError = (err) => {
-  return { type: SUBMIT_FORM_ERROR, payload: err };
-};
 
 export const postThread = async (thread) => {
   console.log("thread di action", thread);
