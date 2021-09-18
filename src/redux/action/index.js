@@ -2,7 +2,6 @@ import apiBackend from "../../apis/apiBackend";
 import { LIKE_POST, UNLIKE_POST } from "../type/likes";
 
 export const postThread = async (thread) => {
-  console.log("thread di action", thread);
   const timeElapsed = Date.now();
   const today = new Date(timeElapsed);
 
