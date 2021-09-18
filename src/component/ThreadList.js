@@ -19,7 +19,6 @@ const ThreadList = () => {
     fetchData(dispatch); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log("post in threadlist", posts);
   return (
     <div role="list" className="list">
       {posts.map((item, index) => (
