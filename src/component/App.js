@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import CreateThread from "./CreateThread.js";
 import { connect } from "react-redux";
 import { fetchPosts } from "../redux/action";
+import { BrowserRouter, Route } from "react-router-dom";
 
 class App extends React.Component {
   render() {
@@ -17,19 +18,23 @@ class App extends React.Component {
         <div className="ui warning message">
           {/* <i className="close icon"></i> */}
           <div className="header">You need to sign in.</div>
-          Don't worry, you can go anonymous when you post a thread{" "}
+          Don't worry, you can go anonymous when you post a thread
           <g style={{ fontSize: 25 }}>😝</g>
         </div>
       </div>
     );
 
     console.log("[APP]props isSignedIn: ", this.props);
+
     return (
       <div className="ui container" style={{ marginTop: "10px" }}>
+        <BrowserRouter>
+          <Route path="/" />
+          <Route path="/dashboard" />
+        </BrowserRouter>
+
         <Navbar />
         {renderThread}
-        {/* <CreateThread />
-        <ThreadList /> */}
       </div>
     );
   }
