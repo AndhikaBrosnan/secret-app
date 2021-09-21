@@ -2,24 +2,30 @@ import React from "react";
 import "../css/Navbar.css";
 import logo from "../resources/logo1.png";
 import GoogleAuth from "./GoogleAuth";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <div>
       <div className=" ui secondary menu">
         <div className="fill">
-          <img alt="" src={logo} className="item ui small left floated image" />
+          <Link to="/">
+            <img
+              alt=""
+              src={logo}
+              className="item ui small left floated image"
+            />
+          </Link>
         </div>
-
         <div className="right menu">
-          <a href="#!" className="item">
+          <Link to="/dashboard" className="item">
             Dashboard
-          </a>
-          <a href="#!" className="item">
+          </Link>
+          <Link to="/journal" className="item">
             Journal
-          </a>
+          </Link>
+
           <div className="item ui tiny header">
-            {/* <button className="ui inverted primary  button">Logout</button> */}
             <GoogleAuth />
           </div>
         </div>
