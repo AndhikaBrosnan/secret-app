@@ -1,13 +1,13 @@
 import React from "react";
 import Navbar from "./Navbar";
 
-const Dashboard = () => {
+const Journal = () => {
   return (
     <div className="ui container" style={{ marginTop: "10px" }}>
       <Navbar />
-      Dashboard Page
+      Journal Page
     </div>
   );
 };
 
-export default Dashboard;
+export default Journal;
