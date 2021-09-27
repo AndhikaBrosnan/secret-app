@@ -1,7 +1,6 @@
 import { FETCH_POSTS, SUBMIT_FORM, SUBMIT_FORM_ERROR } from "../type/thread";
 
 const postReducers = (posts = [], action) => {
-  console.log(posts);
   switch (action.type) {
     case FETCH_POSTS:
       return posts.concat(action.payload);

@@ -3,7 +3,7 @@ import { connect, useDispatch } from "react-redux";
 import { postThread } from "../redux/action";
 import { submitFormAction } from "../redux/action/thread";
 
-const CreateThread = () => {
+const CreateThread = (props) => {
   const dispatch = useDispatch();
   const [inputThread, setInputThread] = useState("");
   const [error, setError] = useState("");
@@ -13,8 +13,9 @@ const CreateThread = () => {
       setError("Please fill this thread.");
       return;
     }
-    const response = await postThread(inputThread);
-    console.log("response di createThread", response);
+
+    const response = await postThread(inputThread, props.auth);
+    // console.log("response di createThread", response);
     // validasi.
     setInputThread("");
     dispatch(submitFormAction(response));
@@ -53,7 +54,7 @@ const CreateThread = () => {
 };
 
 const mapStatetoProps = (state) => {
-  return { postThread: state.postThread, posts: state.posts };
+  return { postThread: state.postThread, posts: state.posts, auth: state.auth };
 };
 
 const createThreadComponent = connect(mapStatetoProps, { postThread })(
