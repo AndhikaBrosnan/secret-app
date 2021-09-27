@@ -33,11 +33,13 @@ const CreateThread = (props) => {
             <div className="">
               <img
                 className="ui avatar mini image"
-                alt="https://semantic-ui.com/images/avatar2/large/molly.png"
-                src={props.auth.profile.getImageUrl()}
+                alt=""
+                src={
+                  props.auth.profile ? props.auth.profile.getImageUrl() : null
+                }
               ></img>
               <span style={{ fontSize: "0,8rem" }}>
-                {props.auth.profile.getName()}
+                {props.auth.profile ? props.auth.profile.getName() : null}
               </span>
             </div>
           </label>
