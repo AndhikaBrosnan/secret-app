@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { signIn, signOut } from "../redux/action/auth.js";
 
 class GoogleAuth extends React.Component {
+  // isu si akun bisa ke detect kalau pertama render doang
   componentDidMount() {
     window.gapi.load("client:auth2", () => {
       window.gapi.client
@@ -24,8 +25,7 @@ class GoogleAuth extends React.Component {
     });
   }
 
-  // get the basic Information
-  // gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile(). [getImage(),getId(),getName()]
+  // make component
 
   onAuthChange = (isSignedIn) => {
     if (isSignedIn) {
@@ -40,18 +40,19 @@ class GoogleAuth extends React.Component {
   };
 
   onSignOutClick = () => {
+    this.forceUpdate();
     this.auth.signOut();
   };
 
   renderAuthButton() {
     if (this.props.isSignedIn === null) {
       return null;
-    } else if (this.props.isSignedIn) {
+    } else if (this.props.isSignedIn && this.props.auth.profile) {
       return (
         <div>
           <button
             onClick={this.onSignOutClick}
-            className="ui negative basic button"
+            className="ui negative basic button item"
           >
             <i className="google icon"></i>
             Sign out
@@ -79,7 +80,7 @@ class GoogleAuth extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { isSignedIn: state.auth.isSignedIn };
+  return { isSignedIn: state.auth.isSignedIn, auth: state.auth };
 };
 
 export default connect(mapStateToProps, { signIn, signOut })(GoogleAuth);

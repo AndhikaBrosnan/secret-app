@@ -17,7 +17,7 @@ const RenderThread = (props) => {
           {/* <i className="close icon"></i> */}
           <div className="header">You need to sign in.</div>
           Don't worry, you can go anonymous when you post a thread
-          <g style={{ fontSize: 25 }}>😝</g>
+          <span style={{ fontSize: 25 }}>😝</span>
         </div>
       </div>
     );

@@ -10,8 +10,12 @@ const authReducer = (state = INTIAL_STATE, action) => {
       // console.log("REDUCER sign_in", { ...state, isSignedIn: true });
       return { ...state, isSignedIn: true, profile: action.payload };
     case SIGN_OUT:
-      console.log("REDUCER sign_out", { ...state, isSignedIn: false });
-      return { ...state, isSignedIn: false };
+      console.log("REDUCER sign_out", {
+        ...state,
+        isSignedIn: false,
+        profile: undefined,
+      });
+      return { ...state, isSignedIn: false, profile: undefined };
     default:
       return state;
   }

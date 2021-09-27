@@ -30,7 +30,16 @@ const CreateThread = (props) => {
       <div className="ui form">
         <div className="field">
           <label>
-            <h4>Create Thread</h4>
+            <div className="">
+              <img
+                className="ui avatar mini image"
+                alt="https://semantic-ui.com/images/avatar2/large/molly.png"
+                src={props.auth.profile.getImageUrl()}
+              ></img>
+              <span style={{ fontSize: "0,8rem" }}>
+                {props.auth.profile.getName()}
+              </span>
+            </div>
           </label>
 
           {/* redux form Field*/}

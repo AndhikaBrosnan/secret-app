@@ -3,6 +3,7 @@ import "../css/Thread.css";
 import CommentList from "./CommentList";
 import { connect } from "react-redux";
 import { unlikePost, likePost } from "../redux/action";
+import moment from "moment";
 
 const Thread = ({ unlikePost, likePost, likes, item, threadIndex }) => {
   const [activeComment, setactiveComment] = useState(null);
@@ -26,7 +27,9 @@ const Thread = ({ unlikePost, likePost, likes, item, threadIndex }) => {
       <div className="content">
         <img alt="" src={item.avatar} className="ui mini left floated image" />
         <div className="header">{item.name}</div>
-        <div className="meta">{item.updatedAt}</div>
+        <div className="meta">
+          {moment(item.updatedAt).format("MMMM Do YYYY, h:mm:ss a")}{" "}
+        </div>
         <div className="description">{item.text}</div>
       </div>
       <div className="extra content">
