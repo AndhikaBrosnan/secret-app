@@ -1,6 +1,6 @@
-# Secret APP xD
+# Secret APP
 
-> Twitter like app, on progress...
+> Twitter like app
 
 # Description
 
@@ -17,7 +17,7 @@
 - npm install
 - use branch `development` for latest changes
 
-# Techs used
+# Tech Stack
 
 - redux
 - react-redux

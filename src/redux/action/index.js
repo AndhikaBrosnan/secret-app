@@ -1,13 +1,14 @@
 import apiBackend from "../../apis/apiBackend";
 import { LIKE_POST, UNLIKE_POST } from "../type/likes";
 
-export const postThread = async (thread) => {
+export const postThread = async (thread, auth) => {
   const timeElapsed = Date.now();
   const today = new Date(timeElapsed);
 
+  console.log("AUTH: ", auth);
   let newPost = {
-    avatar: "https://semantic-ui.com/images/avatar2/large/kristy.png",
-    name: "Anonymous",
+    avatar: auth.profile.getImageUrl(),
+    name: auth.profile.getName(),
     text: thread,
     likes: 0,
     createdAt: today.toDateString(),
@@ -21,7 +22,6 @@ export const postThread = async (thread) => {
   // 3. cara nge re-render threadlists
   // 4. kenapa harus 2 kali dispatch
 
-  console.log("so,what is thread: ", thread);
   try {
     const response = await apiBackend.post("/threads/create", newPost);
     console.log("try api backend: ", response);

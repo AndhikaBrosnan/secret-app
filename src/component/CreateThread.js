@@ -3,7 +3,7 @@ import { connect, useDispatch } from "react-redux";
 import { postThread } from "../redux/action";
 import { submitFormAction } from "../redux/action/thread";
 
-const CreateThread = () => {
+const CreateThread = (props) => {
   const dispatch = useDispatch();
   const [inputThread, setInputThread] = useState("");
   const [error, setError] = useState("");
@@ -13,8 +13,9 @@ const CreateThread = () => {
       setError("Please fill this thread.");
       return;
     }
-    const response = await postThread(inputThread);
-    console.log("response di createThread", response);
+
+    const response = await postThread(inputThread, props.auth);
+    // console.log("response di createThread", response);
     // validasi.
     setInputThread("");
     dispatch(submitFormAction(response));
@@ -29,7 +30,18 @@ const CreateThread = () => {
       <div className="ui form">
         <div className="field">
           <label>
-            <h4>Create Thread</h4>
+            <div className="">
+              <img
+                className="ui avatar mini image"
+                alt=""
+                src={
+                  props.auth.profile ? props.auth.profile.getImageUrl() : null
+                }
+              ></img>
+              <span style={{ fontSize: "0,8rem" }}>
+                {props.auth.profile ? props.auth.profile.getName() : null}
+              </span>
+            </div>
           </label>
 
           {/* redux form Field*/}
@@ -53,7 +65,7 @@ const CreateThread = () => {
 };
 
 const mapStatetoProps = (state) => {
-  return { postThread: state.postThread, posts: state.posts };
+  return { postThread: state.postThread, posts: state.posts, auth: state.auth };
 };
 
 const createThreadComponent = connect(mapStatetoProps, { postThread })(
