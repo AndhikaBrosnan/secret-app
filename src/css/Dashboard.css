@@ -1,0 +1,19 @@
+.dashboard {
+  textalign: "center";
+  padding-bottom: "2rem";
+}
+
+.custom-grid {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.banner {
+  width: 100vw;
+  height: 70vh;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: gray;
+}
