@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import App from "../component/App.js";
-import Dashboard from "../component/Dashboard";
-import Journal from "../component/Journal";
+import Dashboard from "../component/dashboard/Dashboard";
+import Journal from "../component/journal/Journal";
 
 const Routes = () => {
   return (
