@@ -48,9 +48,9 @@ const Dashboard = () => {
         </h2>
         {/* Grid */}
         <div className="ui container" style={{ marginBottom: "10%" }}>
-          <div class="ui grid ">
+          <div className="ui grid ">
             {/* Start  Column Pertama*/}
-            <div class="six wide column custom-grid">
+            <div className="six wide column custom-grid">
               <div className="ui card ">
                 <div className="image">
                   <img
