@@ -7,9 +7,9 @@ import { resetData } from "../redux/action/thread";
 
 class App extends React.Component {
   componentWillUnmount() {
-    console.log("will unmount");
+    console.log("props on will mount: ", this.props);
     // reset action here
-    resetData();
+    this.props.resetData();
   }
 
   render() {
