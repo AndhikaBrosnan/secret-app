@@ -1,8 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CreateThread from "./CreateThread.js";
 import ThreadList from "./ThreadList";
+import { connect } from "react-redux";
+import Loading from "./loading/Loading";
+
+function demoAsyncCall() {
+  return new Promise((resolve) => setTimeout(() => resolve(), 1800));
+}
 
 const RenderThread = (props) => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    demoAsyncCall().then(() => setLoading(false));
+  }, []);
+
+  //check if loading
+  if (loading) {
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
+  }
+
+  //check if user logged in or not.
   if (props.auth.isSignedIn) {
     return (
       <div>
@@ -24,4 +46,10 @@ const RenderThread = (props) => {
   }
 };
 
-export default RenderThread;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+  };
+};
+
+export default connect(mapStateToProps)(RenderThread);

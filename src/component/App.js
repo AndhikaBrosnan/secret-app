@@ -3,15 +3,22 @@ import Navbar from "./Navbar";
 import { connect } from "react-redux";
 import { fetchPosts } from "../redux/action";
 import RenderThread from "./RenderThread";
+import { resetData } from "../redux/action/thread";
 
 class App extends React.Component {
+  componentWillUnmount() {
+    console.log("props on will mount: ", this.props);
+    // reset action here
+    this.props.resetData();
+  }
+
   render() {
     console.log("[APP]props isSignedIn: ", this.props);
 
     return (
       <div className="ui container" style={{ marginTop: "10px" }}>
         <Navbar />
-        {RenderThread(this.props)}
+        <RenderThread />
       </div>
     );
   }
@@ -20,8 +27,7 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
   return {
     posts: state.posts,
-    auth: state.auth,
   };
 };
 
-export default connect(mapStateToProps, { fetchPosts })(App);
+export default connect(mapStateToProps, { fetchPosts, resetData })(App);
