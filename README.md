@@ -20,6 +20,7 @@
 # Tech Stack
 
 - redux
+- hooks
 - react-redux
 - redux-form
 - redux-thunk

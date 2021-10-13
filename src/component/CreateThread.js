@@ -37,7 +37,7 @@ const CreateThread = (props) => {
                 src={
                   props.auth.profile ? props.auth.profile.getImageUrl() : null
                 }
-              ></img>
+              />
               <span style={{ fontSize: "0,8rem" }}>
                 {props.auth.profile ? props.auth.profile.getName() : null}
               </span>

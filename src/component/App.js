@@ -13,7 +13,7 @@ class App extends React.Component {
   }
 
   render() {
-    console.log("[APP]props isSignedIn: ", this.props);
+    console.log("[APP] props: ", this.props);
 
     return (
       <div className="ui container" style={{ marginTop: "10px" }}>
@@ -27,6 +27,7 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
   return {
     posts: state.posts,
+    auth: state.auth,
   };
 };
 

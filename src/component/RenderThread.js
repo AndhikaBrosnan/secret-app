@@ -16,9 +16,10 @@ const RenderThread = (props) => {
   }, []);
 
   //check if loading
-  if (loading) {
+  if (loading && props.auth.isSignedIn) {
     return (
       <div>
+        <CreateThread />
         <Loading />
       </div>
     );
