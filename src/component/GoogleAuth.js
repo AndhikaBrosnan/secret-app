@@ -1,9 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import { signIn, signOut } from "../redux/action/auth.js";
+import { resetData } from "../redux/action/thread";
 
 class GoogleAuth extends React.Component {
-  // isu si akun bisa ke detect kalau pertama render doang
+  //todo: isu si akun bisa ke detect kalau pertama render doang
   componentDidMount() {
     window.gapi.load("client:auth2", () => {
       window.gapi.client
@@ -25,7 +26,9 @@ class GoogleAuth extends React.Component {
     });
   }
 
-  // make component
+  componentDidUpdate(pS, pP) {
+    this.props.resetData();
+  }
 
   onAuthChange = (isSignedIn) => {
     if (isSignedIn) {
@@ -47,7 +50,7 @@ class GoogleAuth extends React.Component {
   renderAuthButton() {
     if (this.props.isSignedIn === null) {
       return null;
-    } else if (this.props.isSignedIn && this.props.auth.profile) {
+    } else if (this.props.isSignedIn) {
       return (
         <div>
           <button
@@ -83,4 +86,6 @@ const mapStateToProps = (state) => {
   return { isSignedIn: state.auth.isSignedIn, auth: state.auth };
 };
 
-export default connect(mapStateToProps, { signIn, signOut })(GoogleAuth);
+export default connect(mapStateToProps, { signIn, signOut, resetData })(
+  GoogleAuth
+);
