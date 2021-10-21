@@ -14,7 +14,6 @@ const Thread = ({
   threadIndex,
 }) => {
   const [activeComment, setactiveComment] = useState(null);
-  // const [threadLikes, setThreadLikes] = useState(0);
 
   const activeLike = threadLike.includes(item.id) ? "active" : "";
 
@@ -31,18 +30,14 @@ const Thread = ({
   };
 
   // # count likes on this thread
-
   var countLike = 0;
   for (var i in likes) {
     if (likes[i].likedId === item.id) {
       countLike++;
     }
   }
-  // const likesThread = likes
-  //   .stream()
-  //   .filter((like) => like.likedId === item.id)
-  //   .count();
 
+  // # I wonder code below doesn't work
   // likes.map((like) => {
   //   if (like.likedId === item.id) {
   //     setThreadLikes(threadLikes + 1);
