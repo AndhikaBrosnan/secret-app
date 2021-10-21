@@ -14,6 +14,7 @@ const Thread = ({
   threadIndex,
 }) => {
   const [activeComment, setactiveComment] = useState(null);
+  // const [threadLikes, setThreadLikes] = useState(0);
 
   const activeLike = threadLike.includes(item.id) ? "active" : "";
 
@@ -29,8 +30,25 @@ const Thread = ({
     );
   };
 
-  // count likes on this thread
-  // const amtOfLikes = threadLike.includes(item.id) ? likes.length : null;
+  // # count likes on this thread
+
+  var countLike = 0;
+  for (var i in likes) {
+    if (likes[i].likedId === item.id) {
+      countLike++;
+    }
+  }
+  // const likesThread = likes
+  //   .stream()
+  //   .filter((like) => like.likedId === item.id)
+  //   .count();
+
+  // likes.map((like) => {
+  //   if (like.likedId === item.id) {
+  //     setThreadLikes(threadLikes + 1);
+  //   }
+  //   return threadLikes;
+  // });
 
   return (
     <div className="ui card">
@@ -51,7 +69,8 @@ const Thread = ({
         >
           <i className={`like icon ${activeLike}`}></i>
           {/* count likes below */}
-          {item.likes}
+          {/* {item.likes} */}
+          {countLike}
         </a>
         <a
           href="#!"
