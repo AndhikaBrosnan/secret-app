@@ -2,13 +2,20 @@ import React, { useState } from "react";
 import "../css/Thread.css";
 import CommentList from "./CommentList";
 import { connect } from "react-redux";
-import { unlikePost, likePost } from "../redux/action";
+import { unlikePost, likePost } from "../redux/action/like";
 import moment from "moment";
 
-const Thread = ({ unlikePost, likePost, likes, item, threadIndex }) => {
+const Thread = ({
+  unlikePost,
+  likePost,
+  likes,
+  threadLike,
+  item,
+  threadIndex,
+}) => {
   const [activeComment, setactiveComment] = useState(null);
 
-  const activeLike = likes.includes(item.id) ? "active" : "";
+  const activeLike = threadLike.includes(item.id) ? "active" : "";
 
   const onCommentClick = (index) => {
     setactiveComment(index);
@@ -21,6 +28,22 @@ const Thread = ({ unlikePost, likePost, likes, item, threadIndex }) => {
       <div></div>
     );
   };
+
+  // # count likes on this thread
+  var countLike = 0;
+  for (var i in likes) {
+    if (likes[i].likedId === item.id) {
+      countLike++;
+    }
+  }
+
+  // # I wonder code below doesn't work
+  // likes.map((like) => {
+  //   if (like.likedId === item.id) {
+  //     setThreadLikes(threadLikes + 1);
+  //   }
+  //   return threadLikes;
+  // });
 
   return (
     <div className="ui card">
@@ -36,20 +59,20 @@ const Thread = ({ unlikePost, likePost, likes, item, threadIndex }) => {
         <a
           href="#!"
           onClick={
-            likes.includes(threadIndex)
-              ? () => unlikePost(threadIndex)
-              : () => likePost(threadIndex)
+            true ? () => unlikePost(threadIndex) : () => likePost(threadIndex)
           }
         >
           <i className={`like icon ${activeLike}`}></i>
-          {item.likes}
+          {/* count likes below */}
+          {/* {item.likes} */}
+          {countLike}
         </a>
         <a
           href="#!"
           onClick={() => onCommentClick(threadIndex)}
           style={{ paddingLeft: "25px" }}
         >
-          {/* <i className="reply icon"></i> {item.comments.length} */}
+          <i className="reply icon"></i> {item.comments.length}
         </a>
       </div>
 
@@ -60,6 +83,7 @@ const Thread = ({ unlikePost, likePost, likes, item, threadIndex }) => {
 
 const mapStateToProps = (state) => {
   return {
+    auth: state.auth,
     likes: state.likes,
   };
 };

@@ -14,8 +14,8 @@ const postReducers = (posts = [], action) => {
     case SUBMIT_FORM_ERROR:
       return posts;
     case RESET_POSTS:
+      //reset posts to empty array
       posts = [];
-      console.log("after reset post: ", posts);
       return posts;
     default:
       return posts;

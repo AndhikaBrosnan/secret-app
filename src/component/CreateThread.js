@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { postThread } from "../redux/action";
+import { postThread } from "../redux/action/thread";
 import { submitFormAction } from "../redux/action/thread";
 
 const CreateThread = (props) => {
@@ -15,7 +15,7 @@ const CreateThread = (props) => {
     }
 
     const response = await postThread(inputThread, props.auth);
-    // console.log("response di createThread", response);
+
     // validasi.
     setInputThread("");
     dispatch(submitFormAction(response));

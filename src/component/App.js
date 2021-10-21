@@ -7,13 +7,12 @@ import { resetData } from "../redux/action/thread";
 
 class App extends React.Component {
   componentWillUnmount() {
-    console.log("props on will mount: ", this.props);
-    // reset action here
+    // reset props data, if the component not used
     this.props.resetData();
   }
 
   render() {
-    console.log("[APP] props: ", this.props);
+    console.log("[APP] props used on thread page: ", this.props);
 
     return (
       <div className="ui container" style={{ marginTop: "10px" }}>
