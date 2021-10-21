@@ -30,7 +30,7 @@ const Thread = ({
   };
 
   // count likes on this thread
-  const amtOfLikes = threadLike.includes(item.id) ? likes.length : null;
+  // const amtOfLikes = threadLike.includes(item.id) ? likes.length : null;
 
   return (
     <div className="ui card">
