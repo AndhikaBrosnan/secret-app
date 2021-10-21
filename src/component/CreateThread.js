@@ -59,6 +59,11 @@ const CreateThread = (props) => {
         <button onClick={handleSubmit} className="ui primary button">
           Share
         </button>
+        {/* Checklist make anonymous */}
+        <div className="ui checkbox" style={{ marginLeft: "2%" }}>
+          <input type="checkbox" name="anonymous" />
+          <label>Post as anonymous</label>
+        </div>
       </div>
     </div>
   );

@@ -3,6 +3,11 @@ import Navbar from "../Navbar";
 import "../../css/Dashboard.css";
 import Footer from "../footer/Footer";
 import Slider from "react-slick";
+import img1 from "../../resources/image/infografis1.jpg";
+import img2 from "../../resources/image/infografis2.jpg";
+import img3 from "../../resources/image/infografis3.jpg";
+import img4 from "../../resources/image/infografis4.jpg";
+import { block } from "strip-comments";
 
 const Dashboard = () => {
   const settings = {
@@ -19,7 +24,7 @@ const Dashboard = () => {
       <div className="ui container">
         <Navbar />
 
-        <Slider {...settings}>
+        <Slider style={{ display: block }} {...settings}>
           <div>
             <img
               className="banner"
@@ -52,12 +57,8 @@ const Dashboard = () => {
             {/* Start  Column Pertama*/}
             <div className="six wide column custom-grid">
               <div className="ui card ">
-                <div className="image">
-                  <img
-                    className="infograph"
-                    alt=""
-                    src="https://semantic-ui.com/images/wireframe/image.png"
-                  />
+                <div className="image gambar-infografis">
+                  <img className="infograph" alt="" src={img1} />
                 </div>
                 <div className="content">
                   {/* <span className="header">Kristy</span> */}
@@ -72,11 +73,7 @@ const Dashboard = () => {
             <div className="six wide column custom-grid">
               <div className="ui card ">
                 <div className="image">
-                  <img
-                    className="infograph"
-                    alt=""
-                    src="https://semantic-ui.com/images/wireframe/image.png"
-                  />
+                  <img className="infograph" alt="" src={img2} />
                 </div>
                 <div className="content">
                   {/* <span className="header">Kristy</span> */}
@@ -93,11 +90,7 @@ const Dashboard = () => {
             <div className="six wide column custom-grid">
               <div className="ui card ">
                 <div className="image">
-                  <img
-                    className="infograph"
-                    alt=""
-                    src="https://semantic-ui.com/images/wireframe/image.png"
-                  />
+                  <img className="infograph" alt="" src={img3} />
                 </div>
                 <div className="content">
                   {/* <span className="header">Kristy</span> */}
@@ -114,11 +107,7 @@ const Dashboard = () => {
             <div className="six wide column custom-grid">
               <div className="ui card ">
                 <div className="image">
-                  <img
-                    className="infograph"
-                    alt=""
-                    src="https://semantic-ui.com/images/wireframe/image.png"
-                  />
+                  <img className="infograph" alt="" src={img4} />
                 </div>
                 <div className="content">
                   {/* <span className="header">Kristy</span> */}
