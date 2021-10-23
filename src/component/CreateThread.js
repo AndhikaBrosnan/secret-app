@@ -16,10 +16,6 @@ const CreateThread = (props) => {
       return;
     }
 
-    // Check if anonymous is checked or not
-    if (anonymous) {
-    }
-
     const response = await postThread(anonymous, inputThread, props.auth);
 
     // empty the form after post
