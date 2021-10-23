@@ -6,23 +6,30 @@ import { submitFormAction } from "../redux/action/thread";
 const CreateThread = (props) => {
   const dispatch = useDispatch();
   const [inputThread, setInputThread] = useState("");
+  const [anonymous, setAnonymous] = useState(false);
   const [error, setError] = useState("");
 
   const handleSubmit = async () => {
+    // Empty form validation
     if (!inputThread) {
       setError("Please fill this thread.");
       return;
     }
 
-    const response = await postThread(inputThread, props.auth);
+    const response = await postThread(anonymous, inputThread, props.auth);
 
-    // validasi.
+    // empty the form after post
     setInputThread("");
     dispatch(submitFormAction(response));
   };
 
   const handleInputChange = (event) => {
     setInputThread(event.target.value);
+  };
+
+  const handleAnonymousChange = (event) => {
+    setAnonymous(event.target.checked);
+    return null;
   };
 
   return (
@@ -61,7 +68,12 @@ const CreateThread = (props) => {
         </button>
         {/* Checklist make anonymous */}
         <div className="ui checkbox" style={{ marginLeft: "2%" }}>
-          <input type="checkbox" name="anonymous" />
+          <input
+            type="checkbox"
+            onClick={handleAnonymousChange}
+            value={anonymous}
+            name="anonymous"
+          />
           <label>Post as anonymous</label>
         </div>
       </div>
