@@ -6,7 +6,7 @@ export const fetchLikeData = async (dispatch) => {
   dispatch({ type: FETCH_LIKES, payload: response });
 };
 
-export const likePost = (thread) => {
+export const likePostData = (thread) => {
   return {
     type: LIKE_POST,
     payload: thread,

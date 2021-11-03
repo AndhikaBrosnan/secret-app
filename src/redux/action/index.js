@@ -21,3 +21,19 @@ export const fetchLikes = async () => {
     };
   }
 };
+
+export const postLike = async (likedId, auth) => {
+  let newLike = {
+    threadId: auth.profile.getImageUrl(), //the liker avatar (as an ID)
+    likedId: likedId, //the id of the thread (id on mongodb)
+  };
+
+  try {
+    const response = await apiBackend.post("/threads/create-like", newLike);
+    return response.data;
+  } catch (err) {
+    return {
+      message: "[ERROR] post Like error",
+    };
+  }
+};
