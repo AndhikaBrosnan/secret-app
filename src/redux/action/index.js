@@ -1,4 +1,5 @@
 import apiBackend from "../../apis/apiBackend";
+import { LIKE_POST } from "../type/likes";
 
 export const fetchPosts = async () => {
   try {
@@ -22,7 +23,7 @@ export const fetchLikes = async () => {
   }
 };
 
-export const postLike = async (likedId, auth) => {
+export const postLike = async (dispatch, likedId, auth) => {
   let newLike = {
     threadId: auth.profile.getImageUrl(), //the liker avatar (as an ID)
     likedId: likedId, //the id of the thread (id on mongodb)
@@ -30,7 +31,12 @@ export const postLike = async (likedId, auth) => {
 
   try {
     const response = await apiBackend.post("/threads/create-like", newLike);
-    return response.data;
+    // const response = { data: newLike };
+    console.log("LIKE_POST action", response.data);
+    dispatch({
+      type: LIKE_POST,
+      payload: response.data,
+    });
   } catch (err) {
     return {
       message: "[ERROR] post Like error",
