@@ -1,24 +1,23 @@
 import React, { useState } from "react";
 import "../css/Thread.css";
 import CommentList from "./CommentList";
-import { connect } from "react-redux";
-import { unlikePost, likePost } from "../redux/action/like";
+import { connect, useDispatch } from "react-redux";
+import { postLike } from "../redux/action";
 import moment from "moment";
 
-const Thread = ({
-  unlikePost,
-  likePost,
-  likes,
-  threadLike,
-  item,
-  threadIndex,
-}) => {
+const Thread = ({ likes, threadLike, item, auth, threadIndex }) => {
+  const dispatch = useDispatch();
+
   const [activeComment, setactiveComment] = useState(null);
 
   const activeLike = threadLike.includes(item.id) ? "active" : "";
 
   const onCommentClick = (index) => {
     setactiveComment(index);
+  };
+
+  const handleLike = (itemId, auth) => {
+    postLike(dispatch, itemId, auth);
   };
 
   const RenderComments = () => {
@@ -37,14 +36,6 @@ const Thread = ({
     }
   }
 
-  // # I wonder code below doesn't work
-  // likes.map((like) => {
-  //   if (like.likedId === item.id) {
-  //     setThreadLikes(threadLikes + 1);
-  //   }
-  //   return threadLikes;
-  // });
-
   return (
     <div className="ui card">
       <div className="content">
@@ -56,17 +47,16 @@ const Thread = ({
         <div className="description">{item.text}</div>
       </div>
       <div className="extra content">
-        <a
-          href="#!"
+        <i
           onClick={
-            true ? () => unlikePost(threadIndex) : () => likePost(threadIndex)
+            activeLike !== "active" ? () => handleLike(item.id, auth) : null
           }
         >
           <i className={`like icon ${activeLike}`}></i>
           {/* count likes below */}
           {/* {item.likes} */}
           {countLike}
-        </a>
+        </i>
         <a
           href="#!"
           onClick={() => onCommentClick(threadIndex)}
@@ -88,4 +78,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { unlikePost, likePost })(Thread);
+export default connect(mapStateToProps, { postLike })(Thread);

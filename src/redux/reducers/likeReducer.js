@@ -1,19 +1,18 @@
 import { LIKE_POST, UNLIKE_POST, FETCH_LIKES } from "../type/likes";
 
-const INITIAL_STATE = {
-  likes: [],
-};
+const INITIAL_STATE = [];
 
-const likeReducer = (state = INITIAL_STATE, action) => {
+const likeReducer = (likes = INITIAL_STATE, action) => {
   switch (action.type) {
     case FETCH_LIKES:
-      return action.payload;
+      likes.push(...action.payload);
+      return likes;
     case LIKE_POST:
-      return { ...state, likes: action.payload };
+      return likes.concat(action.payload);
     case UNLIKE_POST:
-      return state;
+      return likes;
     default:
-      return state;
+      return likes;
   }
 };
 
