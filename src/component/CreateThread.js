@@ -1,78 +1,92 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Field, reduxForm, reset } from "redux-form";
-import { postThread } from "../actions";
-
-const renderError = ({ error, touched }) => {
-  if (error && touched) {
-    return (
-      <div className="ui error message">
-        <div className="text">{error} </div>
-      </div>
-    );
-  } else {
-  }
-};
-
-const renderInput = (formProps) => {
-  return (
-    <div name="field">
-      <textarea
-        {...formProps.input}
-        rows="3"
-        type="text"
-        placeholder="What's Happpening?"
-      ></textarea>
-      <div>{renderError(formProps.meta)}</div>
-    </div>
-  );
-};
-
-// # Alternative to make an action.
-// const onSubmit = (formProps) => {
-//   postThread(formProps.postThread);
-// };
-
-//WHY does this work?!
-const afterSubmit = (formProps, dispatch) => dispatch(reset("threadCreate"));
+import React, { useState } from "react";
+import { connect, useDispatch } from "react-redux";
+import { postThread } from "../redux/action/thread";
+import { submitFormAction } from "../redux/action/thread";
 
 const CreateThread = (props) => {
+  const dispatch = useDispatch();
+  const [inputThread, setInputThread] = useState("");
+  const [anonymous, setAnonymous] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async () => {
+    // Empty form validation
+    if (!inputThread) {
+      setError("Please fill this thread.");
+      return;
+    }
+
+    const response = await postThread(anonymous, inputThread, props.auth);
+
+    // empty the form after post
+    setInputThread("");
+    dispatch(submitFormAction(response));
+  };
+
+  const handleInputChange = (event) => {
+    setInputThread(event.target.value);
+  };
+
+  const handleAnonymousChange = (event) => {
+    setAnonymous(event.target.checked);
+    return null;
+  };
+
   return (
     <div className="ui segment">
-      <form className="ui form error" onSubmit={props.handleSubmit}>
+      <div className="ui form">
         <div className="field">
           <label>
-            <h4>Create Thread</h4>
+            <div className="">
+              <img
+                className="ui avatar mini image"
+                alt=""
+                src={
+                  props.auth.profile ? props.auth.profile.getImageUrl() : null
+                }
+              />
+              <span style={{ fontSize: "0,8rem" }}>
+                {props.auth.profile ? props.auth.profile.getName() : null}
+              </span>
+            </div>
           </label>
 
           {/* redux form Field*/}
-          <Field name="postThread" component={renderInput} />
+          <div name="field">
+            <textarea
+              value={inputThread}
+              onChange={handleInputChange}
+              rows="3"
+              type="text"
+              placeholder="What's Happpening?"
+            ></textarea>
+            <span className="ui error">{error}</span>
+          </div>
         </div>
-        <button className="ui primary button">Share</button>
-      </form>
+        <button onClick={handleSubmit} className="ui primary button">
+          Share
+        </button>
+        {/* Checklist make anonymous */}
+        <div className="ui checkbox" style={{ marginLeft: "2%" }}>
+          <input
+            type="checkbox"
+            onClick={handleAnonymousChange}
+            value={anonymous}
+            name="anonymous"
+          />
+          <label>Post as anonymous</label>
+        </div>
+      </div>
     </div>
   );
 };
 
 const mapStatetoProps = (state) => {
-  return { postThread: state.postThread };
+  return { postThread: state.postThread, posts: state.posts, auth: state.auth };
 };
 
 const createThreadComponent = connect(mapStatetoProps, { postThread })(
   CreateThread
 );
 
-const validate = (formValue) => {
-  const errors = {};
-
-  if (!formValue.postThread) {
-    errors.postThread = "Fill to post Thread.";
-  }
-  return errors;
-};
-
-export default reduxForm({
-  form: "threadCreate",
-  onSubmitSuccess: afterSubmit,
-  validate,
-})(createThreadComponent);
+export default createThreadComponent;

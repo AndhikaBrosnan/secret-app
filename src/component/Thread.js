@@ -1,16 +1,23 @@
 import React, { useState } from "react";
 import "../css/Thread.css";
 import CommentList from "./CommentList";
-import { connect } from "react-redux";
-import { unlikePost, likePost } from "../actions";
+import { connect, useDispatch } from "react-redux";
+import { postLike } from "../redux/action";
+import moment from "moment";
 
-const Thread = ({ unlikePost, likePost, likes, item, threadIndex }) => {
+const Thread = ({ likes, threadLike, item, auth, threadIndex }) => {
+  const dispatch = useDispatch();
+
   const [activeComment, setactiveComment] = useState(null);
 
-  const activeLike = likes.includes(item.id) ? "active" : "";
+  const activeLike = threadLike.includes(item.id) ? "active" : "";
 
   const onCommentClick = (index) => {
     setactiveComment(index);
+  };
+
+  const handleLike = (itemId, auth) => {
+    postLike(dispatch, itemId, auth);
   };
 
   const RenderComments = () => {
@@ -21,26 +28,35 @@ const Thread = ({ unlikePost, likePost, likes, item, threadIndex }) => {
     );
   };
 
+  // # count likes on this thread
+  var countLike = 0;
+  for (var i in likes) {
+    if (likes[i].likedId === item.id) {
+      countLike++;
+    }
+  }
+
   return (
     <div className="ui card">
       <div className="content">
         <img alt="" src={item.avatar} className="ui mini left floated image" />
         <div className="header">{item.name}</div>
-        <div className="meta">{item.date}</div>
+        <div className="meta">
+          {moment(item.updatedAt).format("MMMM Do YYYY, h:mm:ss a")}{" "}
+        </div>
         <div className="description">{item.text}</div>
       </div>
       <div className="extra content">
-        <a
-          href="#!"
+        <i
           onClick={
-            likes.includes(threadIndex)
-              ? () => unlikePost(threadIndex)
-              : () => likePost(threadIndex)
+            activeLike !== "active" ? () => handleLike(item.id, auth) : null
           }
         >
           <i className={`like icon ${activeLike}`}></i>
-          {item.likes}
-        </a>
+          {/* count likes below */}
+          {/* {item.likes} */}
+          {countLike}
+        </i>
         <a
           href="#!"
           onClick={() => onCommentClick(threadIndex)}
@@ -57,8 +73,9 @@ const Thread = ({ unlikePost, likePost, likes, item, threadIndex }) => {
 
 const mapStateToProps = (state) => {
   return {
+    auth: state.auth,
     likes: state.likes,
   };
 };
 
-export default connect(mapStateToProps, { unlikePost, likePost })(Thread);
+export default connect(mapStateToProps, { postLike })(Thread);

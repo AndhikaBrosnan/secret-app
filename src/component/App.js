@@ -1,39 +1,23 @@
 import React from "react";
-import ThreadList from "./ThreadList";
-import CreateThread from "./CreateThread.js";
+import Navbar from "./Navbar";
 import { connect } from "react-redux";
+import { fetchPosts } from "../redux/action";
+import RenderThread from "./RenderThread";
+import { resetData } from "../redux/action/thread";
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { posts: this.props.posts };
+  componentWillUnmount() {
+    // reset props data, if the component not used
+    this.props.resetData();
   }
 
-  submit = (values) => {
-    const timeElapsed = Date.now();
-
-    const today = new Date(timeElapsed);
-
-    let newPost = {
-      avatar: "https://semantic-ui.com/images/avatar2/large/kristy.png",
-      name: "Me",
-      text: values.postThread,
-      likes: 0,
-      date: today.toDateString(),
-      comments: [],
-    };
-
-    // set state to manipulate the lists
-    this.setState({
-      posts: [newPost, ...this.state.posts],
-    });
-  };
-
   render() {
+    console.log("[APP] props used on thread page: ", this.props);
+
     return (
       <div className="ui container" style={{ marginTop: "10px" }}>
-        <CreateThread onSubmit={this.submit} />
-        <ThreadList list={this.state.posts} />
+        <Navbar />
+        <RenderThread />
       </div>
     );
   }
@@ -42,7 +26,8 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
   return {
     posts: state.posts,
+    auth: state.auth,
   };
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, { fetchPosts, resetData })(App);

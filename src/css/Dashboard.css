@@ -1,0 +1,28 @@
+.dashboard {
+  text-align: "center";
+  padding-bottom: "2rem";
+}
+
+.custom-grid {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.banner {
+  object-fit: cover;
+  width: 100vw;
+  height: 70vh;
+}
+
+.infograph {
+  object-fit: cover;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: gray;
+}
+
+.gambar-infografis {
+  background-color: #c0e2ea;
+}

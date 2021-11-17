@@ -9,3 +9,7 @@
   position: absolute;
   left: 2%;
 }
+
+.ui.error {
+  color: red;
+}
